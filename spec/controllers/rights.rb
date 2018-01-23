@@ -1,4 +1,4 @@
-RSpec.describe Controllers::Permissions do
+RSpec.describe Controllers::Rights do
   describe 'GET /' do
     describe 'in the nominal case' do
       before do
