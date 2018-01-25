@@ -18,17 +18,23 @@ module Controllers
     end
 
     declare_route 'post', '/' do
-      check_presence('slug')
-      right = Arkaan::Permissions::Right.new(slug: right_parameters['slug'])
-      if right.save
-        halt 201, {message: 'created'}.to_json
+      check_presence('slug', 'category_id')
+      if Arkaan::Permissions::Category.where(id: params['category_id']).first.nil?
+        halt 404, {message: 'category_not_found'}.to_json
       else
-        halt 422, {errors: right.errors.messages.values.flatten}.to_json
+        right = Arkaan::Permissions::Right.new(right_parameters)
+        if right.save
+          halt 201, {message: 'created'}.to_json
+        else
+          halt 422, {errors: right.errors.messages.values.flatten}.to_json
+        end
       end
     end
 
     def right_parameters
-      return {'slug' => params['slug'] }
+      return params.select do |key, value|
+        ['slug', 'category_id'].include?(key)
+      end
     end
   end
 end
