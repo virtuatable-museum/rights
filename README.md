@@ -177,7 +177,7 @@ __Response format :__ JSON string.
 __Response body :__ `{'message': 'category_not_found`}`  
 __Solution :__ Check the spelling of your category ID and the existence of your category. Contact us for more informations.
 
-### Creation of a new right
+### Deletion of a right
 
 All parameters MUST be sent in the querystring.
 
