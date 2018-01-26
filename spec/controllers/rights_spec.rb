@@ -17,6 +17,9 @@ RSpec.describe Controllers::Rights do
 
   describe 'GET /' do
     describe 'in the nominal case' do
+      let!(:other_category) { create(:category, slug: 'other_category') }
+      let!(:other_right) { create(:right, slug: 'another_random_right', groups: [], category: other_category) }
+
       before do
         get '/', {app_key: 'test_key', token: 'test_token'}
       end
@@ -27,16 +30,21 @@ RSpec.describe Controllers::Rights do
         let!(:body) { JSON.parse(last_response.body) }
 
         it 'Returns the right counts for the rights list' do
-          expect(body['count']).to be 1
+          expect(body['count']).to be 2
         end
-        it 'Returns an array of the correct length for the rights' do
-          expect(body['items'].count).to be 1
-        end
-        it 'Returns a right with the correct slug' do
-          expect(body['items'].first['slug']).to eq('test_right')
-        end
-        it 'Returns the correct groups count for a given right' do
-          expect(body['items'].first['groups']).to be 1
+        it 'Returns a hash having categories slugs as keys, and content of categories as values' do
+          expect(body['items']).to eq([
+            {
+              'slug' => 'test_category',
+              'count' => 1,
+              'items' => [{'slug' => 'test_right', 'groups' => 1}]
+            },
+            {
+              'slug' => 'other_category',
+              'count' => 1,
+              'items' => [{'slug' => 'another_random_right', 'groups' => 0}]
+            }
+          ])
         end
       end
     end

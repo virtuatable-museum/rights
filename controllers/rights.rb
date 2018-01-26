@@ -3,8 +3,8 @@ module Controllers
   # @author Vincent Courtois <courtois.vincent@outlook.com>
   class Rights < Arkaan::Utils::Controller
     declare_route 'get', '/' do
-      rights = Decorators::Right.decorate_collection(Arkaan::Permissions::Right.all)
-      halt 200, {count: rights.count, items: rights.map(&:to_h)}.to_json
+      categories = Decorators::Category.decorate_collection(Arkaan::Permissions::Category.all)
+      halt 200, {count: Arkaan::Permissions::Right.all.count, items: categories.map(&:to_h)}.to_json
     end
 
     declare_route 'delete', '/:id' do
