@@ -18,7 +18,7 @@ module Controllers
     end
 
     declare_route 'post', '/' do
-      check_presence('slug', 'category_id')
+      check_presence 'slug', 'category_id'
       if Arkaan::Permissions::Category.where(id: params['category_id']).first.nil?
         halt 404, {message: 'category_not_found'}.to_json
       else
@@ -31,9 +31,25 @@ module Controllers
       end
     end
 
+    declare_route 'post', '/categories' do
+      check_presence 'slug'
+      category = Arkaan::Permissions::Category.new(category_parameters)
+      if category.save
+        halt 201, {message: 'created'}.to_json
+      else
+        halt 422, {errors: category.errors.messages.values.flatten}.to_json
+      end
+    end
+
     def right_parameters
       return params.select do |key, value|
         ['slug', 'category_id'].include?(key)
+      end
+    end
+
+    def category_parameters
+      return params.select do |key, value|
+        ['slug'].include?(key)
       end
     end
   end
