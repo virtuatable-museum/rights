@@ -35,14 +35,24 @@ RSpec.describe Controllers::Rights do
         it 'Returns a hash having categories slugs as keys, and content of categories as values' do
           expect(body['items']).to eq([
             {
+              'id' => category.id.to_s,
               'slug' => 'test_category',
               'count' => 1,
-              'items' => [{'slug' => 'test_right', 'groups' => 1}]
+              'items' => [{
+                'id' => right.id.to_s,
+                'slug' => 'test_right',
+                'groups' => 1
+              }]
             },
             {
+              'id' => other_category.id.to_s,
               'slug' => 'other_category',
               'count' => 1,
-              'items' => [{'slug' => 'another_random_right', 'groups' => 0}]
+              'items' => [{
+                'id' => other_right.id.to_s,
+                'slug' => 'another_random_right',
+                'groups' => 0
+              }]
             }
           ])
         end

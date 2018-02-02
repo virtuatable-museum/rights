@@ -4,6 +4,7 @@ module Decorators
 
     def to_h
       return {
+        id: object.id.to_s,
         slug: object.slug,
         count: object.rights.count,
         items: items

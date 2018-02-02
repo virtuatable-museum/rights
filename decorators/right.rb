@@ -6,6 +6,7 @@ module Decorators
     # @return [Hash] the associative array representation of the right.
     def to_h
       return {
+        id: object.id.to_s,
         slug: object.slug,
         groups: object.groups.count
       }
