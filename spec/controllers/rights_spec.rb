@@ -361,4 +361,79 @@ RSpec.describe Controllers::Rights do
       end
     end
   end
+  describe 'DELETE /categories/:id' do
+    describe 'the nominal case' do
+      before do
+        delete "/categories/#{category.id.to_s}", {app_key: 'test_key', token: 'test_token'}
+      end
+      it 'Returns a OK (200) status code when deleting a right' do
+        expect(last_response.status).to be 200
+      end
+      it 'Returns the correct body when deleting a right' do
+        expect(JSON.parse(last_response.body)).to eq({'message' => 'deleted'})
+      end
+      it 'Has deleted the right in the database' do
+        expect(Arkaan::Permissions::Category.all.count).to be 0
+      end
+    end
+    describe 'bad request errors' do
+      describe 'no token error' do
+        before do
+          delete "/categories/#{category.id.to_s}", {app_key: 'test_key'}
+        end
+        it 'Raises a bad request (400) error when the parameters don\'t contain the token of the gateway' do
+          expect(last_response.status).to be 400
+        end
+        it 'returns the correct response if the parameters do not contain a gateway token' do
+          expect(JSON.parse(last_response.body)).to eq({'message' => 'bad_request'})
+        end
+      end
+      describe 'no application key error' do
+        before do
+          delete "/categories/#{category.id.to_s}", {token: 'test_token'}
+        end
+        it 'Raises a bad request (400) error when the parameters don\'t contain the application key' do
+          expect(last_response.status).to be 400
+        end
+        it 'returns the correct response if the parameters do not contain a application key' do
+          expect(JSON.parse(last_response.body)).to eq({'message' => 'bad_request'})
+        end
+      end
+    end
+    describe 'not_found errors' do
+      describe 'category not found' do
+        before do
+          delete "/categories/anything", {token: 'test_token', app_key: 'test_key'}
+        end
+        it 'Raises a not found (404) error when the category doesn\'t exist' do
+          expect(last_response.status).to be 404
+        end
+        it 'returns the correct body when the category doesn\'t exist' do
+          expect(JSON.parse(last_response.body)).to eq({'message' => 'category_not_found'})
+        end
+      end
+      describe 'application not found' do
+        before do
+          delete "/categories/#{category.id.to_s}", {token: 'test_token', app_key: 'another_key'}
+        end
+        it 'Raises a not found (404) error when the key doesn\'t belong to any application' do
+          expect(last_response.status).to be 404
+        end
+        it 'returns the correct body when the gateway doesn\'t exist' do
+          expect(JSON.parse(last_response.body)).to eq({'message' => 'application_not_found'})
+        end
+      end
+      describe 'gateway not found' do
+        before do
+          delete "/categories/#{category.id.to_s}", {token: 'other_token', app_key: 'test_key'}
+        end
+        it 'Raises a not found (404) error when the gateway does\'nt exist' do
+          expect(last_response.status).to be 404
+        end
+        it 'returns the correct body when the gateway doesn\'t exist' do
+          expect(JSON.parse(last_response.body)).to eq({'message' => 'gateway_not_found'})
+        end
+      end
+    end
+  end
 end

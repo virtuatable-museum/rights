@@ -17,6 +17,17 @@ module Controllers
       end
     end
 
+    declare_route 'delete', '/categories/:id' do
+      category = Arkaan::Permissions::Category.where(id: params[:id]).first
+      if category.nil?
+        halt 404, {message: 'category_not_found'}.to_json
+      else
+        category.delete
+        halt 200, {message: 'deleted'}.to_json
+      end
+
+    end
+
     declare_route 'post', '/' do
       check_presence 'slug', 'category_id'
       if Arkaan::Permissions::Category.where(id: params['category_id']).first.nil?
