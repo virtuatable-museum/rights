@@ -366,14 +366,17 @@ RSpec.describe Controllers::Rights do
       before do
         delete "/categories/#{category.id.to_s}", {app_key: 'test_key', token: 'test_token'}
       end
-      it 'Returns a OK (200) status code when deleting a right' do
+      it 'Returns a OK (200) status code when deleting a category' do
         expect(last_response.status).to be 200
       end
-      it 'Returns the correct body when deleting a right' do
+      it 'Returns the correct body when deleting a category' do
         expect(JSON.parse(last_response.body)).to eq({'message' => 'deleted'})
       end
-      it 'Has deleted the right in the database' do
+      it 'Has deleted the category in the database' do
         expect(Arkaan::Permissions::Category.all.count).to be 0
+      end
+      it 'Has deleted the right in the database' do
+        expect(Arkaan::Permissions::Right.all.count).to be 0
       end
     end
     describe 'bad request errors' do

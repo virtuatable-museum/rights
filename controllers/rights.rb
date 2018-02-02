@@ -22,6 +22,7 @@ module Controllers
       if category.nil?
         halt 404, {message: 'category_not_found'}.to_json
       else
+        category.rights.delete_all if category.rights.any?
         category.delete
         halt 200, {message: 'deleted'}.to_json
       end
