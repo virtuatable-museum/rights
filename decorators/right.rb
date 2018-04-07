@@ -8,7 +8,10 @@ module Decorators
       return {
         id: object.id.to_s,
         slug: object.slug,
-        groups: object.groups.count
+        category: {
+          id: object.category.id.to_s,
+          slug: object.category.slug
+        }
       }
     end
   end

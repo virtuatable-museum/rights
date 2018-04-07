@@ -24,7 +24,17 @@ RSpec.describe Controllers::Rights do
         expect(last_response.status).to be 201
       end
       it 'returns the correct body when the right is successfully created' do
-        expect(JSON.parse(last_response.body)).to eq({'message' => 'created'})
+        expect(JSON.parse(last_response.body)).to eq({
+          'message' => 'created',
+          'item' => {
+            'id' => Arkaan::Permissions::Right.order_by(created_at: :desc).first.id.to_s,
+            'slug' => 'test_other_right',
+            'category' => {
+              'id' => category.id.to_s,
+              'slug' => 'test_category'
+            }
+          }
+        })
       end
     end
 

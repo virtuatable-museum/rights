@@ -28,7 +28,7 @@ module Controllers
       else
         right = Arkaan::Permissions::Right.new(right_parameters)
         if right.save
-          halt 201, {message: 'created'}.to_json
+          halt 201, {message: 'created', item: Decorators::Right.new(right).to_h}.to_json
         else
           error_key = right.errors.messages.keys.first
           error = right.errors.messages[error_key].first
