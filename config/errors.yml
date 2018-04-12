@@ -1,12 +1,12 @@
 errors:
   common:
     app_key:
-      forbidden: 'https://github.com/jdr-tools/arkaan/wiki/Errors#application-not-premium'
-      required: 'https://github.com/jdr-tools/arkaan/wiki/Errors#parameter-not-given'
-      unknown: 'https://github.com/jdr-tools/arkaan/wiki/Errors#application-key-not-found'
+      forbidden: 'https://github.com/jdr-tools/wiki/wiki/Common-errors#application-not-premium'
+      required: 'https://github.com/jdr-tools/wiki/wiki/Common-errors#application-key-not-given'
+      unknown: 'https://github.com/jdr-tools/wiki/wiki/Common-errors#application-key-not-found'
     token:
-      required: 'https://github.com/jdr-tools/arkaan/wiki/Errors#parameter-not-given'
-      unknown: 'https://github.com/jdr-tools/arkaan/wiki/Errors#gateway-token-not-found'
+      required: 'https://github.com/jdr-tools/wiki/wiki/Common-errors#gateway-token-not-given'
+      unknown: 'https://github.com/jdr-tools/wiki/wiki/Common-errors#gateway-token-not-found'
   creation:
     category_id:
       required: 'https://github.com/jdr-tools/wiki/wiki/Rights-API#category-id-not-given'
