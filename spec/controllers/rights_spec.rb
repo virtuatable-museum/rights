@@ -53,7 +53,7 @@ RSpec.describe Controllers::Rights do
             'status' => 400,
             'field' => 'slug',
             'error' => 'required',
-            'docs' => 'https://github.com/jdr-tools/arkaan/wiki/Errors#parameter-not-given'
+            'docs' => 'https://github.com/jdr-tools/wiki/wiki/Rights-API#slug-not-given'
           })
         end
       end
@@ -69,7 +69,7 @@ RSpec.describe Controllers::Rights do
             'status' => 400,
             'field' => 'slug',
             'error' => 'minlength',
-            'docs' => 'https://github.com/jdr-tools/rights/wiki/Creation-of-a-right#slug-too-short'
+            'docs' => 'https://github.com/jdr-tools/wiki/wiki/Rights-API#slug-too-short'
           })
         end
       end
@@ -85,7 +85,7 @@ RSpec.describe Controllers::Rights do
             'status' => 400,
             'field' => 'slug',
             'error' => 'pattern',
-            'docs' => 'https://github.com/jdr-tools/rights/wiki/Creation-of-a-right#slug-in-a-wrong-format'
+            'docs' => 'https://github.com/jdr-tools/wiki/wiki/Rights-API#slug-with-wrong-format'
           })
         end
       end
@@ -101,7 +101,7 @@ RSpec.describe Controllers::Rights do
             'status' => 400,
             'field' => 'slug',
             'error' => 'uniq',
-            'docs' => 'https://github.com/jdr-tools/rights/wiki/Creation-of-a-right#slug-already-used'
+            'docs' => 'https://github.com/jdr-tools/wiki/wiki/Rights-API#slug-already-taken'
           })
         end
       end
@@ -117,7 +117,7 @@ RSpec.describe Controllers::Rights do
             'status' => 400,
             'field' => 'category_id',
             'error' => 'required',
-            'docs' => 'https://github.com/jdr-tools/arkaan/wiki/Errors#parameter-not-given'
+            'docs' => 'https://github.com/jdr-tools/wiki/wiki/Rights-API#category-id-not-given'
           })
         end
       end
@@ -135,7 +135,7 @@ RSpec.describe Controllers::Rights do
             'status' => 404,
             'field' => 'category_id',
             'error' => 'unknown',
-            'docs' => 'https://github.com/jdr-tools/rights/wiki/Creation-of-a-right#category-id-not-found'
+            'docs' => 'https://github.com/jdr-tools/wiki/wiki/Rights-API#category-not-found'
           })
         end
       end

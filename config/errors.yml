@@ -1,0 +1,21 @@
+errors:
+  common:
+    app_key:
+      forbidden: 'https://github.com/jdr-tools/arkaan/wiki/Errors#application-not-premium'
+      required: 'https://github.com/jdr-tools/arkaan/wiki/Errors#parameter-not-given'
+      unknown: 'https://github.com/jdr-tools/arkaan/wiki/Errors#application-key-not-found'
+    token:
+      required: 'https://github.com/jdr-tools/arkaan/wiki/Errors#parameter-not-given'
+      unknown: 'https://github.com/jdr-tools/arkaan/wiki/Errors#gateway-token-not-found'
+  creation:
+    category_id:
+      required: 'https://github.com/jdr-tools/wiki/wiki/Rights-API#category-id-not-given'
+      unknown: 'https://github.com/jdr-tools/wiki/wiki/Rights-API#category-not-found'
+    slug:
+      minlength: 'https://github.com/jdr-tools/wiki/wiki/Rights-API#slug-too-short'
+      pattern: 'https://github.com/jdr-tools/wiki/wiki/Rights-API#slug-with-wrong-format'
+      required: 'https://github.com/jdr-tools/wiki/wiki/Rights-API#slug-not-given'
+      uniq: 'https://github.com/jdr-tools/wiki/wiki/Rights-API#slug-already-taken'
+  deletion:
+    right_id:
+      unknown: 'https://github.com/jdr-tools/wiki/wiki/Rights-API#right-id-not-found'
