@@ -18,7 +18,7 @@ RSpec.describe Controllers::Rights do
   describe 'POST /' do
     describe 'in the nominal case' do
       before do
-        post '/', {app_key: 'test_key', token: 'test_token', slug: 'test_other_right', category_id: category.id.to_s}
+        post '/rights', {app_key: 'test_key', token: 'test_token', slug: 'test_other_right', category_id: category.id.to_s}
       end
       it 'gives the correct status code when successfully creating a right' do
         expect(last_response.status).to be 201
@@ -38,12 +38,12 @@ RSpec.describe Controllers::Rights do
       end
     end
 
-    it_should_behave_like 'a route', 'post', '/'
+    it_should_behave_like 'a route', 'post', '/rights'
 
     describe 'bad request errors' do
       describe 'slug not given error' do
         before do
-          post '/', {app_key: 'test_key', token: 'test_token', category_id: category.id.to_s}
+          post '/rights', {app_key: 'test_key', token: 'test_token', category_id: category.id.to_s}
         end
         it 'Raises a bad request (400) error when the parameters don\'t contain the slug' do
           expect(last_response.status).to be 400
@@ -59,7 +59,7 @@ RSpec.describe Controllers::Rights do
       end
       describe 'slug too short error' do
         before do
-          post '/', {app_key: 'test_key', token: 'test_token', slug: 'a', category_id: category.id.to_s}
+          post '/rights', {app_key: 'test_key', token: 'test_token', slug: 'a', category_id: category.id.to_s}
         end
         it 'Raises a bad request (400) error when the given slug is less than four characters' do
           expect(last_response.status).to be 400
@@ -75,7 +75,7 @@ RSpec.describe Controllers::Rights do
       end
       describe 'slug in a wrong format error' do
         before do
-          post '/', {app_key: 'test_key', token: 'test_token', slug: 'wrongFormatSlug', category_id: category.id.to_s}
+          post '/rights', {app_key: 'test_key', token: 'test_token', slug: 'wrongFormatSlug', category_id: category.id.to_s}
         end
         it 'Raises a bad request (400) error when the given slug has a wrong format' do
           expect(last_response.status).to be 400
@@ -91,7 +91,7 @@ RSpec.describe Controllers::Rights do
       end
       describe 'already existing slug error' do
         before do
-          post '/', {app_key: 'test_key', token: 'test_token', slug: 'test_right', category_id: category.id.to_s}
+          post '/rights', {app_key: 'test_key', token: 'test_token', slug: 'test_right', category_id: category.id.to_s}
         end
         it 'gives the correct status code when creating a right with an already existing slug' do
           expect(last_response.status).to be 400
@@ -107,7 +107,7 @@ RSpec.describe Controllers::Rights do
       end
       describe 'category not given error' do
         before do
-          post '/', {app_key: 'test_key', token: 'test_token', slug: 'any_other_slug'}
+          post '/rights', {app_key: 'test_key', token: 'test_token', slug: 'any_other_slug'}
         end
         it 'Raises a bad request (400) error when the parameters don\'t contain the category' do
           expect(last_response.status).to be 400
@@ -125,7 +125,7 @@ RSpec.describe Controllers::Rights do
     describe 'not_found errors' do
       describe 'category not found' do
         before do
-          post '/', {token: 'test_token', app_key: 'test_key', slug: 'perfectly_correct_slug', category_id: '1'}.to_json
+          post '/rights', {token: 'test_token', app_key: 'test_key', slug: 'perfectly_correct_slug', category_id: '1'}.to_json
         end
         it 'Raises a not found (404) error when the category does\'nt exist' do
           expect(last_response.status).to be 404
@@ -144,7 +144,7 @@ RSpec.describe Controllers::Rights do
   describe 'DELETE /:id' do
     describe 'the nominal case' do
       before do
-        delete "/#{right.id.to_s}", {app_key: 'test_key', token: 'test_token'}
+        delete "/rights/#{right.id.to_s}", {app_key: 'test_key', token: 'test_token'}
       end
       it 'Returns a OK (200) status code when deleting a right' do
         expect(last_response.status).to be 200
@@ -157,6 +157,6 @@ RSpec.describe Controllers::Rights do
       end
     end
 
-    it_should_behave_like 'a route', 'post', '/right_id'
+    it_should_behave_like 'a route', 'post', '/rights/right_id'
   end
 end
