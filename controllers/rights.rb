@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Controllers
   # Controller for the rights, mapped on /rights
   # @author Vincent Courtois <courtois.vincent@outlook.com>
@@ -12,18 +14,20 @@ module Controllers
         custom_error(404, 'deletion.right_id.unknown')
       else
         right.delete
-        halt 200, {message: 'deleted'}.to_json
+        halt 200, { message: 'deleted' }.to_json
       end
     end
 
     declare_route 'post', '/' do
       check_presence 'slug', 'category_id', route: 'creation'
-      if Arkaan::Permissions::Category.where(id: params['category_id']).first.nil?
+      category_id = params['category_id']
+      if Arkaan::Permissions::Category.where(id: category_id).first.nil?
         custom_error(404, 'creation.category_id.unknown')
       else
         right = Arkaan::Permissions::Right.new(right_parameters)
         if right.save
-          halt 201, {message: 'created', item: Decorators::Right.new(right).to_h}.to_json
+          item = Decorators::Right.new(right).to_h
+          halt 201, { message: 'created', item: item }.to_json
         else
           model_error(right, 'creation')
         end
@@ -31,8 +35,8 @@ module Controllers
     end
 
     def right_parameters
-      return params.select do |key, value|
-        ['slug', 'category_id'].include?(key)
+      params.select do |key, _|
+        %w[slug category_id].include?(key)
       end
     end
   end
