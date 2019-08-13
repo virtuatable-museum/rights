@@ -1,9 +1,10 @@
 module Controllers
   # Controller for the rights, mapped on /rights
   # @author Vincent Courtois <courtois.vincent@outlook.com>
-  class Rights < Arkaan::Utils::Controller
-
+  class Rights < Arkaan::Utils::Controllers::Checked
     load_errors_from __FILE__
+
+    declare_status_route
 
     declare_route 'delete', '/:id' do
       right = Arkaan::Permissions::Right.where(id: params[:id]).first
