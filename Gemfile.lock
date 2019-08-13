@@ -172,6 +172,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
+    yard (0.9.20)
 
 PLATFORMS
   ruby
@@ -194,6 +195,7 @@ DEPENDENCIES
   rubocop
   simplecov (= 0.15.1)
   sinatra (= 2.0.5)
+  yard (= 0.9.20)
 
 BUNDLED WITH
    1.17.2
